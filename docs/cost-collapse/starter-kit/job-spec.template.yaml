@@ -1,0 +1,39 @@
+schema_version: cathedral.cost_collapse.job_spec.v1
+competition_id: bittensor-subnet-analyst-compression
+artifact_id: replace-with-unique-artifact-id
+creator:
+  name: replace-with-name
+  contact: replace-with-contact
+  bittensor_hotkey: replace-with-hotkey
+baseline:
+  workflow_id: polaris-workflow-subnet-analyst-v0
+  trace_window: replace-with-trace-window
+  median_credits_per_task: 0.0
+  median_latency_seconds: 0.0
+  failure_rate: 0.0
+target:
+  task: Answer held-out Bittensor subnet-analysis questions.
+  minimum_quality_retention: 0.85
+  required_capabilities:
+    - citation_correctness
+    - demand_vs_supply_reasoning
+    - risk_detection
+    - stale_evidence_flagging
+intervention:
+  type: prompt_compression
+  summary: Replace with the smallest validated intervention.
+  training_or_build_steps:
+    - Replace with reproducible command or script.
+runtime:
+  polaris_profile: cpu-smoke
+  container_image: replace-with-image-digest
+  app_port: 8080
+  health_path: /health
+  ready_path: /ready
+  required_secrets: []
+eval:
+  held_out_eval_id: replace-with-held-out-eval-id
+  command: replace-with-eval-command
+deployment:
+  one_click_polaris_url: https://polaris.computer/deploy/example
+  attribution_url: https://polaris.computer/attribution/example
