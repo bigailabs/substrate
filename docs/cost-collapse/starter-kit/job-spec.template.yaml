@@ -36,4 +36,4 @@ eval:
   command: replace-with-eval-command
 deployment:
   one_click_polaris_url: https://polaris.computer/deploy/example
-  attribution_url: https://polaris.computer/attribution/example
+  attribution_url: https://polaris.computer/api/cost-collapse/attribution/example

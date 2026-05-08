@@ -75,7 +75,8 @@ Do not open rewards until these fields are frozen:
 - baseline cost and latency window
 - minimum quality-retention threshold
 - Polaris deployment link format
-- usage attribution event schema
+- Polaris proof API path: `/api/cost-collapse/proof/{run_id}`
+- Polaris attribution API path: `/api/cost-collapse/attribution/{optimization_artifact_id}`
 - reward tiers and decay rule
 
 Until those exist, this package is a private dry-run kit for credible miners and builders.

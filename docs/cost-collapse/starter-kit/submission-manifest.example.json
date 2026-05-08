@@ -38,7 +38,7 @@
     "known_tradeoffs": "May underperform on subnets with no local chat evidence. Routes those to the expensive analyst."
   },
   "usage_attribution": {
-    "attribution_url": "https://polaris.computer/attribution/subnet-analyst-prompt-router-v0",
+    "attribution_url": "https://polaris.computer/api/cost-collapse/attribution/subnet-analyst-prompt-router-v0",
     "artifact_event_name": "cost_collapse_artifact_deployed",
     "exclude_creator_owned_usage": true
   },
