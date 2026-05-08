@@ -1,0 +1,52 @@
+{
+  "schema_version": "cathedral.cost_collapse.submission_manifest.v1",
+  "competition_id": "bittensor-subnet-analyst-compression",
+  "artifact": {
+    "id": "model-only",
+    "name": "Model Only",
+    "type": "distilled_model",
+    "summary": "A model upload with no deployment or attribution path."
+  },
+  "creator": {
+    "name": "Example Builder",
+    "contact": "builder@example.com",
+    "bittensor_hotkey": "5ExampleHotkeyReplaceMe"
+  },
+  "paths": {
+    "job_spec": "missing-job-spec.yaml",
+    "report": "missing-report.md",
+    "eval_results": "missing-eval.json",
+    "artifact": "missing-artifact"
+  },
+  "deployment": {
+    "one_click_polaris_url": "http://example.com/deploy",
+    "health_url": "http://example.com/health",
+    "ready_url": "http://example.com/ready"
+  },
+  "metrics": {
+    "baseline_credits_per_task": 1.0,
+    "optimized_credits_per_task": 1.2,
+    "baseline_latency_seconds": 120.0,
+    "optimized_latency_seconds": 140.0,
+    "baseline_failure_rate": 0.04,
+    "optimized_failure_rate": 0.4
+  },
+  "quality": {
+    "held_out_eval_id": "subnet-analyst-heldout-v0",
+    "outcome_retention": 0.7,
+    "citation_correctness": 0.7,
+    "known_tradeoffs": "Poor quality."
+  },
+  "usage_attribution": {
+    "attribution_url": "http://example.com/attribution",
+    "artifact_event_name": "",
+    "exclude_creator_owned_usage": false
+  },
+  "disqualifier_attestations": {
+    "not_model_only": false,
+    "not_public_benchmark_only": false,
+    "not_dataset_only": true,
+    "reproducible_from_job_spec": false,
+    "does_not_count_self_deploy_as_demand": false
+  }
+}

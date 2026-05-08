@@ -1,0 +1,8 @@
+{
+  "held_out_eval_id": "subnet-analyst-heldout-v0",
+  "tasks": 20,
+  "outcome_retention": 0.9,
+  "citation_correctness": 0.92,
+  "risk_detection": 0.88,
+  "demand_vs_supply_reasoning": 0.91
+}

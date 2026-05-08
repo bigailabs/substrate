@@ -1,0 +1,52 @@
+{
+  "schema_version": "cathedral.cost_collapse.submission_manifest.v1",
+  "competition_id": "bittensor-subnet-analyst-compression",
+  "artifact": {
+    "id": "subnet-analyst-prompt-router-v0",
+    "name": "Subnet Analyst Prompt Router v0",
+    "type": "router",
+    "summary": "Routes easy subnet-analysis prompts to a compact prompt and reserves the expensive analyst for hard evidence-heavy cases."
+  },
+  "creator": {
+    "name": "Example Builder",
+    "contact": "builder@example.com",
+    "bittensor_hotkey": "5ExampleHotkeyReplaceMe"
+  },
+  "paths": {
+    "job_spec": "job-spec.template.yaml",
+    "report": "cost-latency-quality-report.template.md",
+    "eval_results": "../../../tests/cost-collapse/fixtures/eval-results.example.json",
+    "artifact": "../../../tests/cost-collapse/fixtures/artifact"
+  },
+  "deployment": {
+    "one_click_polaris_url": "https://polaris.computer/deploy/subnet-analyst-prompt-router-v0",
+    "health_url": "https://proof.polaris.computer/subnet-analyst-prompt-router-v0/health",
+    "ready_url": "https://proof.polaris.computer/subnet-analyst-prompt-router-v0/ready"
+  },
+  "metrics": {
+    "baseline_credits_per_task": 1.0,
+    "optimized_credits_per_task": 0.42,
+    "baseline_latency_seconds": 120.0,
+    "optimized_latency_seconds": 54.0,
+    "baseline_failure_rate": 0.04,
+    "optimized_failure_rate": 0.05
+  },
+  "quality": {
+    "held_out_eval_id": "subnet-analyst-heldout-v0",
+    "outcome_retention": 0.9,
+    "citation_correctness": 0.92,
+    "known_tradeoffs": "May underperform on subnets with no local chat evidence. Routes those to the expensive analyst."
+  },
+  "usage_attribution": {
+    "attribution_url": "https://polaris.computer/api/cost-collapse/attribution/subnet-analyst-prompt-router-v0",
+    "artifact_event_name": "cost_collapse_artifact_deployed",
+    "exclude_creator_owned_usage": true
+  },
+  "disqualifier_attestations": {
+    "not_model_only": true,
+    "not_public_benchmark_only": true,
+    "not_dataset_only": true,
+    "reproducible_from_job_spec": true,
+    "does_not_count_self_deploy_as_demand": true
+  }
+}

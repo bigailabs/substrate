@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cathedral.computer/schemas/cost-collapse-submission-manifest-v1.json",
+  "title": "Cathedral Cost-Collapse Submission Manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "competition_id",
+    "artifact",
+    "creator",
+    "paths",
+    "deployment",
+    "metrics",
+    "quality",
+    "usage_attribution",
+    "disqualifier_attestations"
+  ],
+  "properties": {
+    "schema_version": { "const": "cathedral.cost_collapse.submission_manifest.v1" },
+    "competition_id": { "const": "bittensor-subnet-analyst-compression" },
+    "artifact": {
+      "type": "object",
+      "required": ["id", "name", "type", "summary"],
+      "properties": {
+        "id": { "type": "string", "minLength": 3 },
+        "name": { "type": "string", "minLength": 3 },
+        "type": {
+          "enum": [
+            "distilled_model",
+            "lora_adapter",
+            "router",
+            "prompt_compression_recipe",
+            "specialized_judge",
+            "cached_tool_plan_policy",
+            "retrieval_pack",
+            "trace_dataset_with_eval_harness",
+            "failure_diagnosis"
+          ]
+        },
+        "summary": { "type": "string", "minLength": 20 }
+      }
+    },
+    "creator": {
+      "type": "object",
+      "required": ["name", "contact", "bittensor_hotkey"],
+      "properties": {
+        "name": { "type": "string" },
+        "contact": { "type": "string" },
+        "bittensor_hotkey": { "type": "string" }
+      }
+    },
+    "paths": {
+      "type": "object",
+      "required": ["job_spec", "report", "eval_results", "artifact"],
+      "properties": {
+        "job_spec": { "type": "string" },
+        "report": { "type": "string" },
+        "eval_results": { "type": "string" },
+        "artifact": { "type": "string" }
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "required": ["one_click_polaris_url", "health_url", "ready_url"],
+      "properties": {
+        "one_click_polaris_url": { "type": "string", "format": "uri" },
+        "health_url": { "type": "string", "format": "uri" },
+        "ready_url": { "type": "string", "format": "uri" }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "required": [
+        "baseline_credits_per_task",
+        "optimized_credits_per_task",
+        "baseline_latency_seconds",
+        "optimized_latency_seconds",
+        "baseline_failure_rate",
+        "optimized_failure_rate"
+      ],
+      "properties": {
+        "baseline_credits_per_task": { "type": "number", "exclusiveMinimum": 0 },
+        "optimized_credits_per_task": { "type": "number", "exclusiveMinimum": 0 },
+        "baseline_latency_seconds": { "type": "number", "exclusiveMinimum": 0 },
+        "optimized_latency_seconds": { "type": "number", "exclusiveMinimum": 0 },
+        "baseline_failure_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+        "optimized_failure_rate": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "required": ["held_out_eval_id", "outcome_retention", "citation_correctness", "known_tradeoffs"],
+      "properties": {
+        "held_out_eval_id": { "type": "string" },
+        "outcome_retention": { "type": "number", "minimum": 0, "maximum": 1 },
+        "citation_correctness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "known_tradeoffs": { "type": "string" }
+      }
+    },
+    "usage_attribution": {
+      "type": "object",
+      "required": ["attribution_url", "artifact_event_name", "exclude_creator_owned_usage"],
+      "properties": {
+        "attribution_url": { "type": "string", "format": "uri" },
+        "artifact_event_name": { "type": "string" },
+        "exclude_creator_owned_usage": { "type": "boolean" }
+      }
+    },
+    "disqualifier_attestations": {
+      "type": "object",
+      "required": [
+        "not_model_only",
+        "not_public_benchmark_only",
+        "not_dataset_only",
+        "reproducible_from_job_spec",
+        "does_not_count_self_deploy_as_demand"
+      ],
+      "properties": {
+        "not_model_only": { "type": "boolean" },
+        "not_public_benchmark_only": { "type": "boolean" },
+        "not_dataset_only": { "type": "boolean" },
+        "reproducible_from_job_spec": { "type": "boolean" },
+        "does_not_count_self_deploy_as_demand": { "type": "boolean" }
+      }
+    }
+  }
+}

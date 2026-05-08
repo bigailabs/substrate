@@ -373,6 +373,14 @@ localnet-restart:
     cd scripts/localnet && ./restart.sh
 
 # =============================================================================
+# COST-COLLAPSE
+# =============================================================================
+
+# Run cost-collapse submission preflight
+cost-collapse-preflight MANIFEST="docs/cost-collapse/starter-kit/submission-manifest.example.json":
+    python3 scripts/cost-collapse/preflight.py {{MANIFEST}} --root docs/cost-collapse/starter-kit
+
+# =============================================================================
 # PYTHON SDK
 # =============================================================================
 

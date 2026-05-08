@@ -13,6 +13,7 @@ This directory contains comprehensive documentation for the Basilica decentraliz
 
 - **[Validator Guide](validator.md)** - Deploy and manage validator nodes for network verification
 - **[Miner Guide](miner.md)** - Set up miners to orchestrate GPU node access via SSH
+- **[Cost-Collapse Supply Kit](cost-collapse/README.md)** - Recruit and preflight miner submissions for Polaris workflow optimization assets
 
 ### Operations
 
