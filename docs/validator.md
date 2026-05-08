@@ -2,9 +2,9 @@
 
 This is the validator handoff for Cathedral on Bittensor SN39.
 
-Cathedral is in its compute-validation phase today. A validator runs the Cathedral validator, checks miner machines, records verification evidence, scores the available compute, and sets weights on SN39 if its hotkey has a validator permit.
+Cathedral is in its compute-validation phase today. A validator runs the Cathedral validator, checks miner machines, records verification evidence, scores the available compute, and sets weights on SN39 from a permitted validator hotkey.
 
-The current Cathedral operator hotkey is below permit. That is fine. The point of this handoff is to let validators with permit run the validator themselves, or child-hotkey the Cathedral operator so the experiment can set weights end to end.
+The point of this handoff is to let SN39 validators run the validator themselves, or child-hotkey the Cathedral operator so the experiment can run end to end while the validator keeps control.
 
 ## What the validator does now
 
@@ -20,7 +20,7 @@ Today this is compute validation. The next step is demand-led scoring from Polar
 
 ## Who should run this
 
-Run this if you are an SN39 validator, or if you can register and stake a hotkey enough to get validator permit.
+Run this if you are an SN39 validator with permit, or if you operate infrastructure for one.
 
 If you do not want to run infrastructure yet, child-hotkeying the Cathedral operator is also useful for the experiment.
 
@@ -35,7 +35,7 @@ Current Cathedral operator hotkey:
 - Linux server with stable network.
 - Rust toolchain for the source build path.
 - Bittensor CLI and a hotkey registered on SN39.
-- Validator permit if you want weight setting to land.
+- A hotkey with validator permit for production weight setting.
 - Inbound TCP `8080` for the validator API and advertised endpoint.
 - Inbound TCP `50052` for miner bid registration.
 - Optional private TCP `9090` for Prometheus metrics.
@@ -76,7 +76,7 @@ btcli wallet overview --all --netuids 39 --network finney
 Build and run:
 
 ```bash
-cargo build --release --bin cathedral-validator
+cargo build --release -p basilica-validator --bin cathedral-validator
 RUST_LOG=info,cathedral_validator=debug \
   ./target/release/cathedral-validator --config config/validator.toml start
 ```
@@ -88,17 +88,18 @@ In another shell:
 ```bash
 curl http://127.0.0.1:8080/health
 curl http://127.0.0.1:8080/miners
+curl http://127.0.0.1:9090/metrics
 ```
 
 In logs, look for:
 
 ```text
-Discovered
-Verification
-set weights
+Selected ALL
+validation cycle
+Updating scores
 ```
 
-If your hotkey lacks validator permit, validation can still run, but `set_weights` will fail with a permit or transaction rejection. That is expected. A validator with permit should see weight-setting attempts land once miners are verified and scores are available.
+A permitted validator should see weight-setting attempts land once miners are verified and scores are available.
 
 ## Firewall
 
@@ -111,6 +112,17 @@ sudo ufw allow from YOUR_MONITORING_IP to any port 9090 proto tcp
 ```
 
 Do not expose SSH broadly if you can avoid it. Restrict SSH to your own admin IPs.
+
+## Current operator reference
+
+The Cathedral operator is running this source-build path today on a Verda CPU node:
+
+- validator API health returns `200`
+- validator API reports `15` active miners
+- Prometheus reports `basilica_validator_discovered_miners_total 15`
+- public Cathedral log stream returns `connected: true` and `error: null`
+
+This is the same path validators should run from their own permitted hotkey.
 
 ## Validator packet to share
 
