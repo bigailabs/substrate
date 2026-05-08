@@ -1,0 +1,52 @@
+{
+  "schema_version": "cathedral.cost_collapse.submission_manifest.v1",
+  "competition_id": "bittensor-subnet-analyst-compression",
+  "artifact": {
+    "id": "dry-run-optimized-artifact-v0",
+    "name": "Polaris Cost-Collapse Ledger Dry Run",
+    "type": "trace_dataset_with_eval_harness",
+    "summary": "Internal dry-run harness that validates Polaris proof and attribution paths before public rewards."
+  },
+  "creator": {
+    "name": "Polaris internal dry run",
+    "contact": "fred@polaris.computer",
+    "bittensor_hotkey": "internal-not-reward-eligible"
+  },
+  "paths": {
+    "job_spec": "job-spec.yaml",
+    "report": "cost-latency-quality-report.md",
+    "eval_results": "eval-results.json",
+    "artifact": "artifact"
+  },
+  "deployment": {
+    "one_click_polaris_url": "https://polaris.computer/deploy/dry-run-optimized-artifact-v0",
+    "health_url": "https://api.polaris.computer/health",
+    "ready_url": "https://api.polaris.computer/health"
+  },
+  "metrics": {
+    "baseline_credits_per_task": 1.0,
+    "optimized_credits_per_task": 0.35,
+    "baseline_latency_seconds": 120.0,
+    "optimized_latency_seconds": 45.0,
+    "baseline_failure_rate": 0.0,
+    "optimized_failure_rate": 0.0
+  },
+  "quality": {
+    "held_out_eval_id": "cost-collapse-internal-ledger-dry-run-v0",
+    "outcome_retention": 0.9,
+    "citation_correctness": 0.9,
+    "known_tradeoffs": "This dry run validates the ledger and attribution path only. It is not evidence of external demand or model quality."
+  },
+  "usage_attribution": {
+    "attribution_url": "https://api.polaris.computer/api/cost-collapse/attribution/dry-run-optimized-artifact-v0",
+    "artifact_event_name": "cost_collapse_artifact_deployed",
+    "exclude_creator_owned_usage": true
+  },
+  "disqualifier_attestations": {
+    "not_model_only": true,
+    "not_public_benchmark_only": true,
+    "not_dataset_only": true,
+    "reproducible_from_job_spec": true,
+    "does_not_count_self_deploy_as_demand": true
+  }
+}

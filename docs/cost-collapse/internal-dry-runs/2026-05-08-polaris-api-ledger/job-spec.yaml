@@ -1,0 +1,39 @@
+schema_version: cathedral.cost_collapse.job_spec.v1
+competition_id: bittensor-subnet-analyst-compression
+artifact_id: dry-run-optimized-artifact-v0
+creator:
+  name: Polaris internal dry run
+  contact: fred@polaris.computer
+  bittensor_hotkey: internal-not-reward-eligible
+baseline:
+  workflow_id: polaris-cost-collapse-dry-run-v0
+  trace_window: 2026-05-08T16:29:42Z..2026-05-08T16:29:48Z
+  median_credits_per_task: 1.0
+  median_latency_seconds: 120.0
+  failure_rate: 0.0
+target:
+  task: Validate that Polaris can record baseline, optimized, and eval runs with proof and attribution URLs.
+  minimum_quality_retention: 0.85
+  required_capabilities:
+    - proof_url_generation
+    - artifact_attribution
+    - exclusion_flag_handling
+intervention:
+  type: trace_dataset_with_eval_harness
+  summary: Internal dry-run harness for testing Polaris proof and attribution paths before public rewards.
+  training_or_build_steps:
+    - Run `scripts/cost-collapse/record_dry_run.py` from the Polaris repo with a Polaris API token.
+runtime:
+  polaris_profile: cost-collapse-dry-run
+  container_image: not-applicable-api-ledger-dry-run
+  app_port: 0
+  health_path: /health
+  ready_path: /health
+  required_secrets:
+    - POLARIS_API_TOKEN
+eval:
+  held_out_eval_id: cost-collapse-internal-ledger-dry-run-v0
+  command: python3 scripts/cost-collapse/record_dry_run.py --base-url https://api.polaris.computer
+deployment:
+  one_click_polaris_url: https://polaris.computer/deploy/dry-run-optimized-artifact-v0
+  attribution_url: https://api.polaris.computer/api/cost-collapse/attribution/dry-run-optimized-artifact-v0

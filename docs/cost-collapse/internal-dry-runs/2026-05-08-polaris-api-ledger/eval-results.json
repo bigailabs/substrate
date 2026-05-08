@@ -1,0 +1,14 @@
+{
+  "held_out_eval_id": "cost-collapse-internal-ledger-dry-run-v0",
+  "task_count": 1,
+  "outcome_retention": 0.9,
+  "citation_correctness": 0.9,
+  "risk_detection_score": 0.9,
+  "demand_vs_supply_score": 0.9,
+  "baseline_proof_url": "https://api.polaris.computer/api/cost-collapse/proof/d13a313a-01f9-4d26-b1a6-69e61620ad37",
+  "optimized_proof_url": "https://api.polaris.computer/api/cost-collapse/proof/c32c1055-cd0b-4915-b72a-01dbbfafd37e",
+  "eval_proof_url": "https://api.polaris.computer/api/cost-collapse/proof/2edaa951-81e1-424a-9e9f-f4f75fa5f78b",
+  "attribution_url": "https://api.polaris.computer/api/cost-collapse/attribution/dry-run-optimized-artifact-v0",
+  "eligible_credits_micros": 0,
+  "first_party_exclusion_count": 2
+}
