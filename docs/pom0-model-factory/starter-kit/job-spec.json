@@ -10,6 +10,6 @@
   "runner": "scripts/model_factory/pom0_distill.py",
   "schema_version": "polaris.model_factory.pom0.job_spec.v1",
   "task_id": "polaris_issue_router_v1",
-  "teacher_model": "offline-fixture-teacher",
-  "teacher_source": "offline_fixture"
+  "teacher_model": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "teacher_source": "chutes"
 }

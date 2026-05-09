@@ -1,11 +1,13 @@
 {
   "artifact": {
     "base_student": "qwen-2.5-7b-instruct-compatible-router",
-    "bytes": 7439,
-    "id": "pom0-issue-router-cf16c407e690",
+    "bytes": 7434,
+    "id": "pom0-issue-router-3214fb17b1d8",
+    "one_click_polaris_url": "https://polaris.computer/model-factory/pom0/pom0-issue-router-3214fb17b1d8",
     "path": "experiments/model-factory-pom0/artifacts/latest/student_model.json",
-    "sha256": "cf16c407e690a5724468d843ba1b55ef07a0f5110107c7b24881eaa860149d72",
-    "type": "router"
+    "sha256": "3214fb17b1d81bcf72f857e51d7bf0306efd1b23cc70f3f203ed61df46f92b36",
+    "type": "router",
+    "usage_attribution_url": "https://polaris.computer/api/model-factory/pom0/artifacts/pom0-issue-router-3214fb17b1d8/attribution"
   },
   "competition_id": "pom0-model-factory-issue-router",
   "eligibility": {
@@ -13,15 +15,15 @@
     "held_out_eval_result": true,
     "polaris_deployable_artifact": true,
     "reproducible_job_spec": true,
-    "usage_attribution_path": false,
-    "usage_attribution_status": "pending"
+    "usage_attribution_path": true,
+    "usage_attribution_status": "active"
   },
   "eval_items": [
     {
       "gold": "core_compute",
       "id": "eval-001",
       "split": "eval",
-      "student": "core_compute",
+      "student": "provider_access",
       "teacher": "core_compute",
       "text": "The instance says running but the live URL returns a gateway error."
     },
@@ -37,8 +39,8 @@
       "gold": "provider_access",
       "id": "eval-003",
       "split": "eval",
-      "student": "provider_access",
-      "teacher": "provider_access",
+      "student": "core_compute",
+      "teacher": "core_compute",
       "text": "Trusted compute creates an SSH edge but no replica is ready behind it."
     },
     {
@@ -46,7 +48,7 @@
       "id": "eval-004",
       "split": "eval",
       "student": "provider_access",
-      "teacher": "provider_access",
+      "teacher": "security_compliance",
       "text": "The validator registry endpoint fails because the host key is rejected."
     },
     {
@@ -102,7 +104,7 @@
       "id": "eval-011",
       "split": "eval",
       "student": "security_compliance",
-      "teacher": "security_compliance",
+      "teacher": "model_factory",
       "text": "The manifest hash does not match the submitted model file."
     },
     {
@@ -120,27 +122,27 @@
     "exclude_platform_owned_usage": true,
     "exclude_refunded_usage": true
   },
-  "generated_at_unix": 1778296259,
+  "generated_at_unix": 1778323549,
   "improvement": {
-    "break_even_predictions": 36,
-    "latency_speedup": 5869.046584418335,
+    "break_even_predictions": 37,
+    "latency_speedup": 60748.698087680714,
     "quality_floor_pass": true,
     "quality_retention": 1.0,
-    "raw_quality_retention": 1.0,
+    "raw_quality_retention": 1.1111111111111112,
     "serving_cost_reduction": 1.0,
-    "student_outperformed_teacher_on_gold": false,
-    "teacher_eval_cost_per_item_usd": 4.44e-05,
-    "teacher_labeling_cost_usd": 0.0015984
+    "student_outperformed_teacher_on_gold": true,
+    "teacher_eval_cost_per_item_usd": 3.3073333333333335e-06,
+    "teacher_labeling_cost_usd": 0.00011963510000000001
   },
   "schema_version": "polaris.model_factory.pom0.report.v1",
   "student": {
-    "accuracy_vs_gold": 1.0,
-    "agreement_with_teacher": 1.0,
-    "artifact_bytes": 7439,
-    "artifact_kb": 7.2646484375,
+    "accuracy_vs_gold": 0.8333333333333334,
+    "agreement_with_teacher": 0.75,
+    "artifact_bytes": 7434,
+    "artifact_kb": 7.259765625,
     "kind": "multinomial_naive_bayes_issue_router",
-    "latency_ms_mean": 0.02555781383610641,
-    "latency_ms_p95": 0.027415924705564976,
+    "latency_ms_mean": 0.013057930045761168,
+    "latency_ms_p95": 0.014165998436510563,
     "latency_runs": 1200,
     "serving_cost_usd_per_item": 0.0,
     "vocab_terms": 178
@@ -160,19 +162,20 @@
     "train_count": 24
   },
   "teacher": {
-    "accuracy_vs_gold": 1.0,
+    "accuracy_vs_gold": 0.75,
     "calls": 6,
-    "eval_cost_usd": 0.0005328,
-    "eval_latency_ms_per_item": 150.0,
-    "model": "offline-fixture-teacher",
+    "eval_cost_usd": 3.9688000000000004e-05,
+    "eval_latency_ms_per_item": 793.25225,
+    "model": "Qwen/Qwen2.5-Coder-32B-Instruct",
     "pricing_usd_per_million_tokens": {
-      "completion": 1.1,
-      "prompt": 0.27
+      "completion": 0.1087,
+      "input_cache_read": 0.0136,
+      "prompt": 0.0272
     },
-    "root": "offline-fixture",
-    "source": "offline_fixture",
-    "total_completion_tokens": 540,
-    "total_cost_usd": 0.0015984,
-    "total_prompt_tokens": 3720
+    "root": "Qwen/Qwen2.5-Coder-32B-Instruct",
+    "source": "chutes",
+    "total_completion_tokens": 721,
+    "total_cost_usd": 0.00011963510000000001,
+    "total_prompt_tokens": 1517
   }
 }
