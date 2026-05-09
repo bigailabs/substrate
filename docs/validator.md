@@ -33,12 +33,13 @@ Current Cathedral operator hotkey:
 ## Requirements
 
 - Linux server with stable network.
+- CPU-only is fine. The validator server does not need a GPU.
 - Rust toolchain for the source build path.
 - Bittensor CLI and a hotkey registered on SN39.
 - A hotkey with validator permit for production weight setting.
 - Inbound TCP `8080` for the validator API and advertised endpoint.
 - Inbound TCP `50052` for miner bid registration.
-- Optional private TCP `9090` for Prometheus metrics.
+- Local TCP `9090` for Prometheus metrics. Expose it only through a firewall, VPN, or SSH tunnel.
 - Outbound SSH to miner machines.
 
 Keep the coldkey off the server. The validator server only needs the hotkey that signs validation and weight-setting operations.
@@ -66,6 +67,22 @@ network = "finney"
 netuid = 39
 external_ip = "YOUR_PUBLIC_IP"
 ```
+
+Keep these live-subnet defaults unless you know why you are changing them:
+
+```toml
+[metrics.prometheus]
+host = "127.0.0.1"
+port = 9090
+
+[emission]
+forced_burn_percentage = 95.0
+burn_uid = 204
+weight_set_interval_blocks = 360
+weight_version_key = 0
+```
+
+`[verification.binary_validation]` is enabled by the presence of that block. There is no separate `enabled = true` switch.
 
 Confirm your wallet can see SN39:
 
