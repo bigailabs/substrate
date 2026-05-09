@@ -380,6 +380,14 @@ localnet-restart:
 cost-collapse-preflight MANIFEST="docs/cost-collapse/starter-kit/submission-manifest.example.json":
     python3 scripts/cost-collapse/preflight.py {{MANIFEST}} --root docs/cost-collapse/starter-kit
 
+# Run POM-0 ModelFactory submission preflight
+pom0-preflight MANIFEST="docs/pom0-model-factory/starter-kit/submission-manifest.example.json":
+    python3 scripts/pom0/preflight.py {{MANIFEST}} --root docs/pom0-model-factory/starter-kit
+
+# Run POM-0 Python tests
+pom0-test:
+    python3 -m unittest discover -s tests/pom0
+
 # =============================================================================
 # PYTHON SDK
 # =============================================================================

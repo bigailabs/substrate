@@ -1,0 +1,21 @@
+{
+  "schema_version": "cathedral.pom0.submission_manifest.v1",
+  "competition_id": "pom0-model-factory-issue-router",
+  "artifact": {
+    "id": "score-only",
+    "type": "router",
+    "summary": "Claims a good leaderboard score but does not provide a deployable artifact.",
+    "base_student": "qwen-2.5-7b",
+    "teacher_model": "deepseek-v4-flash",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "metrics": {
+    "quality_retention": 1.0,
+    "latency_speedup": 10,
+    "serving_cost_reduction": 1.0,
+    "student_artifact_bytes": 1000
+  },
+  "disqualifier_attestations": {
+    "not_leaderboard_only": false
+  }
+}
