@@ -9,7 +9,7 @@ This guide gets you from zero to a registered miner on Cathedral (Bittensor Subn
 Three things, on separate hosts (or the same host for a minimal setup):
 
 1. **A registered hotkey on SN39.** Use `btcli` to register. The hotkey's coldkey pays the registration fee.
-2. **A GPU node.** A Linux box with NVIDIA drivers, CUDA, Docker, and SSH access. Must have at least one GPU in a category Cathedral's incentive config recognizes (currently A100 or H100).
+2. **A compute node.** A Linux box with SSH access. GPU nodes need NVIDIA drivers, CUDA, and Docker. CPU nodes need normal shell access.
 3. **A miner host.** A CPU-only Linux box that runs the `cathedral-miner` process. This is what registers your node with validators and holds your hotkey. Cheap VPS is fine.
 
 The miner host connects to our validator over gRPC and to your GPU node over SSH.
@@ -20,8 +20,8 @@ You can point your miner at any validator on SN39, but we operate one you can us
 
 ```
 Validator hotkey: 5DnvAgAVykQFmgTSwLXTHpzfmi6W32VtV8L1D9yxSmtThWPb
-gRPC endpoint:    http://65.109.75.36:50052
-Axon:             65.109.75.36:8080
+gRPC endpoint:    http://65.109.75.3:50052
+Axon:             65.109.75.3:8080
 ```
 
 The validator isn't setting weights yet (stake blocker), but it will verify your node and record availability. Once stake lands, emissions start flowing to whoever has passed verification.
@@ -46,7 +46,7 @@ url = "sqlite:/opt/cathedral/data/miner.db?mode=rwc"
 
 [node_management]
 nodes = [
-    { host = "<your.gpu.node.ip>", port = 22, username = "root", gpu_category = "A100", gpu_count = 1 },
+    { host = "<your.gpu.node.ip>", port = 22, username = "root", gpu_category = "RTX_5090", gpu_count = 1 },
 ]
 
 [ssh_session]
@@ -56,10 +56,10 @@ default_node_username = "root"
 [validator_assignment]
 strategy = "fixed_assignment"
 validator_hotkey = "5DnvAgAVykQFmgTSwLXTHpzfmi6W32VtV8L1D9yxSmtThWPb"
-grpc_endpoint_override = "http://65.109.75.36:50052"
+grpc_endpoint_override = "http://65.109.75.3:50052"
 
 [bidding.strategy.static.static_prices]
-A100 = 0.50
+RTX_5090 = 0.45
 ```
 
 ### Key fields
@@ -108,7 +108,7 @@ INFO cathedral_miner::bidding: Starting lifecycle loop: health_check=60s
 If the validator accepts, your node will be scored on the next verification cycle (~10 minutes). You can poll the validator's REST API to confirm:
 
 ```bash
-curl -s http://65.109.75.36:8080/miners | jq '.miners[] | select(.hotkey == "<your_hotkey>")'
+curl -s http://65.109.75.3:8080/miners | jq '.miners[] | select(.hotkey == "<your_hotkey>")'
 ```
 
 ## How verification works
