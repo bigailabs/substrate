@@ -118,6 +118,23 @@ Updating scores
 
 A permitted validator should see weight-setting attempts land once miners are verified and scores are available.
 
+## Miner discovery contract
+
+Miners discover validators from the SN39 metagraph. They read your on-chain axon host, then construct the bid registration endpoint as:
+
+```text
+http://<validator-axon-host>:50052
+```
+
+For miners to find and use your validator:
+
+- Publish your axon on chain.
+- Keep `bittensor.axon_port` reachable at the advertised host.
+- Expose TCP `50052` for bid registration.
+- Keep `bid_grpc.listen_address = "0.0.0.0:50052"` unless you are intentionally running a nonstandard setup.
+
+Do not rely on a Cathedral operator endpoint for public mining. Normal miners should use `strategy = "highest_stake"` and discover validators from chain.
+
 ## Firewall
 
 Example using `ufw`:

@@ -12,19 +12,17 @@ Three things, on separate hosts (or the same host for a minimal setup):
 2. **A compute node.** A Linux box with SSH access. GPU nodes need NVIDIA drivers, CUDA, and Docker. CPU nodes need normal shell access.
 3. **A miner host.** A CPU-only Linux box that runs the `cathedral-miner` process. This is what registers your node with validators and holds your hotkey. Cheap VPS is fine.
 
-The miner host connects to our validator over gRPC and to your GPU node over SSH.
+The miner host discovers validators from the SN39 metagraph, connects to the selected validator over gRPC, and connects to your compute node over SSH.
 
-## Our validator
+## Validator discovery
 
-You can point your miner at any validator on SN39, but we operate one you can use:
+Miners do not need a hardcoded Cathedral operator endpoint. The miner reads validators from the SN39 metagraph, selects one by the configured assignment strategy, reads that validator's on-chain axon host, then constructs the bid endpoint as:
 
-```
-Validator hotkey: 5DnvAgAVykQFmgTSwLXTHpzfmi6W32VtV8L1D9yxSmtThWPb
-gRPC endpoint:    http://65.109.75.3:50052
-Axon:             65.109.75.3:8080
+```text
+http://<validator-axon-host>:50052
 ```
 
-The validator isn't setting weights yet (stake blocker), but it will verify your node and record availability. Once stake lands, emissions start flowing to whoever has passed verification.
+That means validators who want miner traffic must publish an axon on chain and expose TCP `50052` on the same host. The miner's default `bid_grpc_port = 50052` is the subnet convention.
 
 ## Configure the miner
 
@@ -54,9 +52,7 @@ miner_node_key_path = "/root/.ssh/your_ssh_key"
 default_node_username = "root"
 
 [validator_assignment]
-strategy = "fixed_assignment"
-validator_hotkey = "5DnvAgAVykQFmgTSwLXTHpzfmi6W32VtV8L1D9yxSmtThWPb"
-grpc_endpoint_override = "http://65.109.75.3:50052"
+strategy = "highest_stake"
 
 [bidding.strategy.static.static_prices]
 RTX_5090 = 0.45
@@ -66,7 +62,7 @@ RTX_5090 = 0.45
 
 - **`node_management.nodes`** — your GPU nodes. `host` must be an IPv4 literal, not a hostname. `gpu_category` must match what Cathedral's incentive config supports.
 - **`ssh_session.miner_node_key_path`** — path to the SSH **private key** on the miner host. The public key must be in the GPU node's `authorized_keys`.
-- **`validator_assignment.strategy`** — use `fixed_assignment` with `grpc_endpoint_override` to target a specific validator. Use `highest_stake` to auto-pick the top-staked validator on-chain.
+- **`validator_assignment.strategy`**: use `highest_stake` for normal mining. `fixed_assignment` and `grpc_endpoint_override` are for local debugging or explicit validator tests, not the public path.
 - **`bidding.strategy.static.static_prices`** — USD per GPU per hour. Set just above your cost.
 
 ## Build the binary
@@ -105,11 +101,9 @@ INFO cathedral_miner::node_manager: Deployed SSH keys for validator on 1 nodes
 INFO cathedral_miner::bidding: Starting lifecycle loop: health_check=60s
 ```
 
-If the validator accepts, your node will be scored on the next verification cycle (~10 minutes). You can poll the validator's REST API to confirm:
+If the selected validator accepts, your node will be scored on the next verification cycle, usually within 10 minutes. You can also watch the miner logs for `Successfully registered with validator`.
 
-```bash
-curl -s http://65.109.75.3:8080/miners | jq '.miners[] | select(.hotkey == "<your_hotkey>")'
-```
+Discovery uses the validator's on-chain axon host plus `bid_grpc_port`. If bid registration fails with connection refused, the selected validator is not exposing TCP `50052` or you are using a stale fixed endpoint.
 
 ## How verification works
 
