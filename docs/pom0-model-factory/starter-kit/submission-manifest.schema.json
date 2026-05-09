@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cathedral.computer/schemas/pom0-submission-manifest.v1.json",
+  "title": "Cathedral POM-0 submission manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "competition_id",
+    "artifact",
+    "paths",
+    "deployment",
+    "metrics",
+    "usage_attribution",
+    "disqualifier_attestations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cathedral.pom0.submission_manifest.v1"
+    },
+    "competition_id": {
+      "const": "pom0-model-factory-issue-router"
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["id", "type", "summary", "base_student", "teacher_model", "sha256"],
+      "properties": {
+        "id": { "type": "string", "minLength": 8 },
+        "type": {
+          "enum": [
+            "distilled_model",
+            "lora_adapter",
+            "router",
+            "prompt_compression_recipe",
+            "specialized_judge",
+            "cached_tool_plan_policy",
+            "trace_dataset_with_eval_harness"
+          ]
+        },
+        "summary": { "type": "string", "minLength": 30 },
+        "base_student": { "type": "string", "minLength": 3 },
+        "teacher_model": { "type": "string", "minLength": 3 },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "paths": {
+      "type": "object",
+      "required": ["job_spec", "report", "artifact"],
+      "properties": {
+        "job_spec": { "type": "string" },
+        "report": { "type": "string" },
+        "artifact": { "type": "string" }
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["local_artifact", "deployed"] },
+        "one_click_polaris_url": { "type": ["string", "null"] },
+        "deploy_spec_path": { "type": "string" }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "required": [
+        "quality_retention",
+        "latency_speedup",
+        "serving_cost_reduction",
+        "student_artifact_bytes"
+      ],
+      "properties": {
+        "quality_retention": { "type": "number", "minimum": 0, "maximum": 1 },
+        "teacher_accuracy": { "type": "number", "minimum": 0, "maximum": 1 },
+        "student_accuracy": { "type": "number", "minimum": 0, "maximum": 1 },
+        "latency_speedup": { "type": "number", "exclusiveMinimum": 1 },
+        "serving_cost_reduction": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "student_artifact_bytes": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "usage_attribution": {
+      "type": "object",
+      "required": [
+        "status",
+        "artifact_event_name",
+        "exclude_creator_owned_usage",
+        "exclude_platform_owned_usage",
+        "exclude_refunded_usage",
+        "exclude_abuse_flagged_usage"
+      ],
+      "properties": {
+        "status": { "enum": ["pending", "active"] },
+        "artifact_event_name": { "type": "string", "minLength": 3 },
+        "exclude_creator_owned_usage": { "const": true },
+        "exclude_platform_owned_usage": { "const": true },
+        "exclude_refunded_usage": { "const": true },
+        "exclude_abuse_flagged_usage": { "const": true }
+      }
+    },
+    "disqualifier_attestations": {
+      "type": "object",
+      "required": [
+        "not_leaderboard_only",
+        "not_public_benchmark_only",
+        "reproducible_from_job_spec",
+        "does_not_count_self_deploy_as_demand",
+        "artifact_hash_matches"
+      ],
+      "properties": {
+        "not_leaderboard_only": { "const": true },
+        "not_public_benchmark_only": { "const": true },
+        "reproducible_from_job_spec": { "const": true },
+        "does_not_count_self_deploy_as_demand": { "const": true },
+        "artifact_hash_matches": { "const": true }
+      }
+    }
+  }
+}
