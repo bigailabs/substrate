@@ -2,6 +2,8 @@
 
 This is the validator handoff for Cathedral on Bittensor SN39.
 
+This folder copy exists so validators can use the cleaner GitHub directory link. The canonical single-file guide remains available at [docs/validator.md](../validator.md).
+
 Cathedral is in its compute-validation phase today. A validator runs the Cathedral validator, checks miner machines, records verification evidence, scores the available compute, and sets weights on SN39 from a permitted validator hotkey.
 
 The point of this handoff is to let SN39 validators run the validator themselves, or child-hotkey the Cathedral operator so the experiment can run end to end while the validator keeps control.
