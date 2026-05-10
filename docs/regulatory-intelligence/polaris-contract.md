@@ -2,6 +2,8 @@
 
 Cathedral depends on Polaris for runtime, identity, and usage evidence.
 
+This work unit follows the canonical [Polaris Agent Identifier Contract](../polaris-agent-contract.md). Miners submit Polaris agent, deployment, run, or artifact identifiers. Cathedral pulls signed Polaris records for verification. Miner IP addresses are not proof for this work unit.
+
 ## Polaris owns
 
 - Hermes worker deployment

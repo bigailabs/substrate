@@ -13,6 +13,7 @@ This directory contains comprehensive documentation for the Basilica decentraliz
 
 - **[Validator Guide](validator.md)** - Deploy and manage validator nodes for network verification
 - **[Miner Guide](miner.md)** - Set up miners to orchestrate GPU node access via SSH
+- **[Polaris Agent Identifier Contract](polaris-agent-contract.md)** - Miner claims use Polaris agent and artifact identifiers, not IP addresses
 - **[Cost-Collapse Supply Kit](cost-collapse/README.md)** - Recruit and preflight miner submissions for Polaris workflow optimization assets
 - **[Regulatory Intelligence Kit](regulatory-intelligence/README.md)** - Run the first persistent worker card workflow for miners and validators
 
